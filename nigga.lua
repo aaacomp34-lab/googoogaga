@@ -1,42 +1,46 @@
--- // SERVICES
+setfpscap(1500)
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Debris = game:GetService("Debris")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local player = Players.LocalPlayer
 local camera = workspace.CurrentCamera
 
 -- // TUNING
-local DEFAULT_WALKSPEED = 16
-local BHOP_AIR_SPEED = 25.3
+local DEFAULT_WALKSPEED = 17.5
+local BHOP_AIR_SPEED = 24.3
 local PIXELSURF_WALKSPEED = 23.2
 
 -- HARD FLOOR (NEVER FALL BELOW THIS)
 local MIN_Y_LEVEL = 2.8
 
 -- JUMPBUG (0.2s CTRL HOLD -> AIR LAUNCH)
-local JB_FORCE_AMOUNT = 20.54
+local JB_FORCE_AMOUNT = 17
 local JB_LATENCY = 0.0052
-local JUMP_COOLDOWN = 0.42
+local JUMP_COOLDOWN = 0.2
 local JB_CROUCH_HEIGHT = 0.5
 local JB_NORMAL_HEIGHT = 2.0
-local JB_AUTO_CROUCH_TIME = 0.035
+local JB_AUTO_CROUCH_TIME = 0.04
 
 -- FLASH BOOST / LONGJUMP
-local FB_FORWARD_FORCE = 110
-local FB_UPWARD_FORCE = 42.7
+local FB_FORWARD_FORCE = 120
+local FB_UPWARD_FORCE = 50
 
 -- EDGEBUG / SLIDE
 local LOCKED_SLIDE_SPEED = 18
 local SMOOTH_FAC = 0.4
 
 -- PIXELSURF / LADDER
-local PX_WALL_DETECT_DIST = 1.6
+local PX_WALL_DETECT_DIST = 1.4
 local PX_GRAVITY_REDUCTION = 0.05
 local V_SURF_SPEED = 32
 local V_SURF_FORCE = 2e7
-local V_DETECT_DIST = 4.0
+local V_DETECT_DIST = 2.0
+
+-- NO RECOIL SETTINGS
+local noSpreadEnabled = true
 
 local binds = {
     eb = Enum.KeyCode.C,
@@ -56,14 +60,6 @@ local slideCurrentVel = Vector3.zero
 local lockedSurfDir = nil
 local airstuckPos = nil
 local isJumpingBug = false
-local pixelsurfUsedRecently = false
-local pixelsurfCooldown = 0
-
--- Fall damage tracking
-local playerJumped = false
-local wasInAir = false
-local lastGroundY = 0
-local healthBeforeFall = 100
 
 -- Connection cleanup table
 local connections = {}
@@ -77,44 +73,72 @@ local function disconnectAll()
     connections = {}
 end
 
--- // AGGRESSIVE HOOK METHOD - BLOCK ALL DAMAGE FOR WALK-OFFS
+-- // NO RECOIL / NO SPREAD LOGIC
+local function applyNoSpread(weapon)
+    if noSpreadEnabled then
+        local spread = weapon:FindFirstChild("Spread")
+        if spread then
+            for _, v in ipairs(spread:GetDescendants()) do
+                if v:IsA("NumberValue") then
+                    v.Value = 0
+                end
+            end
+        end
+    end
+end
+
+-- Apply no spread to all weapons
+local WeaponsFolder = ReplicatedStorage:FindFirstChild("Weapons")
+if WeaponsFolder then
+    for _, weapon in ipairs(WeaponsFolder:GetChildren()) do
+        applyNoSpread(weapon)
+    end
+    
+    WeaponsFolder.ChildAdded:Connect(function(weapon)
+        applyNoSpread(weapon)
+    end)
+end
+
+-- // ULTRA AGGRESSIVE FALL DAMAGE PREVENTION
 local oldNamecall
 oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
     local method = getnamecallmethod()
     local args = {...}
     
-    -- Block ALL TakeDamage calls on player's humanoid if didn't jump
+    -- Block ALL TakeDamage calls completely
     if method == "TakeDamage" and self:IsA("Humanoid") then
         local char = player.Character
         if char and self == char:FindFirstChild("Humanoid") then
-            if not playerJumped then
-                return -- Block all damage for walk-offs
+            -- Check if damage is fall-related (typically 10+ damage)
+            local damageAmount = args[1]
+            if damageAmount and damageAmount >= 10 then
+                return -- Block all fall damage
             end
         end
     end
     
-    -- Also block FireServer calls that might trigger fall damage
+    -- Block FireServer/InvokeServer for damage events
     if method == "FireServer" or method == "InvokeServer" then
         local name = tostring(self)
-        if name:lower():find("damage") or name:lower():find("fall") or name:lower():find("hurt") then
-            if not playerJumped then
-                return -- Block remote damage calls
-            end
+        if name:lower():find("damage") or name:lower():find("fall") or name:lower():find("hurt") or name:lower():find("health") then
+            -- Don't block all damage events, just suspicious ones
+            return
         end
     end
     
     return oldNamecall(self, ...)
 end)
 
--- Hook __newindex to prevent ANY health decrease for walk-offs
+-- Hook __newindex to prevent health decreases from falls
 local oldNewIndex
 oldNewIndex = hookmetamethod(game, "__newindex", function(self, property, value)
     if self:IsA("Humanoid") and property == "Health" then
         local char = player.Character
         if char and self == char:FindFirstChild("Humanoid") then
-            -- Block ANY health decrease if player didn't jump
-            if value < self.Health and not playerJumped then
-                return -- Completely prevent health reduction
+            -- Block large health decreases (fall damage is usually 10+)
+            local healthDiff = self.Health - value
+            if healthDiff >= 10 then
+                return -- Prevent fall damage health reduction
             end
         end
     end
@@ -128,66 +152,61 @@ local function setupCharacter(char)
     local hum = char:WaitForChild("Humanoid")
     local root = char:WaitForChild("HumanoidRootPart")
     
-    -- Remove fall damage script if it exists
-    local fallDamageScript = hum:FindFirstChild("FallDamage")
-    if fallDamageScript then
-        fallDamageScript:Destroy()
+    -- Remove any fall damage scripts
+    for _, child in ipairs(hum:GetChildren()) do
+        if child.Name:lower():find("fall") or child.Name:lower():find("damage") then
+            child:Destroy()
+        end
     end
     
-    -- Store initial health
-    healthBeforeFall = hum.MaxHealth
+    local maxHealth = hum.MaxHealth
     
-    -- Track jumping state changes
-    table.insert(connections, hum.StateChanged:Connect(function(oldState, newState)
-        if newState == Enum.HumanoidStateType.Jumping then
-            playerJumped = true
-            print("[JUMP] Player jumped - fall damage enabled")
-        elseif newState == Enum.HumanoidStateType.Landed then
-            print("[LAND] Player landed - jumped:", playerJumped)
-            
-            -- FORCE health restore for walk-offs
-            if not playerJumped then
-                task.spawn(function()
-                    for i = 1, 10 do -- Multiple restoration attempts
-                        if hum and hum.Parent and hum.Health < healthBeforeFall then
-                            hum.Health = healthBeforeFall
-                        end
-                        task.wait(0.01)
-                    end
-                end)
-            end
-            
-            -- Reset jump flag after brief delay
-            task.wait(0.2)
-            playerJumped = false
-        elseif newState == Enum.HumanoidStateType.Freefall then
-            -- Entering freefall without jumping = walk-off
-            if oldState ~= Enum.HumanoidStateType.Jumping then
-                playerJumped = false
-                print("[WALKOFF] Player walked off edge - fall damage disabled")
-            end
-        end
-    end))
-    
-    -- AGGRESSIVE health monitoring - restore immediately on any decrease for walk-offs
+    -- Monitor for fall damage and instantly restore health
     table.insert(connections, hum:GetPropertyChangedSignal("Health"):Connect(function()
-        if not playerJumped and hum.Health < healthBeforeFall and hum.Health > 0 then
+        local healthLoss = maxHealth - hum.Health
+        -- If significant health loss (likely fall damage)
+        if healthLoss >= 10 and hum.Health > 0 then
             task.spawn(function()
-                -- Instant restoration
-                hum.Health = healthBeforeFall
+                -- Immediate restoration
+                hum.Health = maxHealth
+                -- Multiple attempts to ensure it sticks
+                for i = 1, 5 do
+                    task.wait(0.01)
+                    if hum and hum.Parent and hum.Health < maxHealth then
+                        hum.Health = maxHealth
+                    end
+                end
             end)
         end
         
-        -- Update stored health if it increased
-        if hum.Health > healthBeforeFall then
-            healthBeforeFall = hum.Health
+        -- Update max health if it changed
+        if hum.Health > maxHealth then
+            maxHealth = hum.Health
         end
     end))
     
-    -- Monitor for any child additions (damage scripts)
+    -- Monitor MaxHealth changes
+    table.insert(connections, hum:GetPropertyChangedSignal("MaxHealth"):Connect(function()
+        maxHealth = hum.MaxHealth
+    end))
+    
+    -- Prevent damage scripts from being added
     table.insert(connections, hum.ChildAdded:Connect(function(child)
         if child.Name:lower():find("damage") or child.Name:lower():find("fall") then
             child:Destroy()
+        end
+    end))
+    
+    -- State monitoring for additional protection
+    table.insert(connections, hum.StateChanged:Connect(function(oldState, newState)
+        if newState == Enum.HumanoidStateType.Landed then
+            -- Force health check on landing
+            task.spawn(function()
+                task.wait(0.05)
+                if hum and hum.Parent and hum.Health < maxHealth then
+                    hum.Health = maxHealth
+                end
+            end)
         end
     end))
     
@@ -235,10 +254,6 @@ UserInputService.InputBegan:Connect(function(input, gpe)
         if root then
             root.AssemblyLinearVelocity = (root.CFrame.LookVector * FB_FORWARD_FORCE) + Vector3.new(0, FB_UPWARD_FORCE, 0)
         end
-    elseif k == Enum.KeyCode.Space then
-        -- CRITICAL: Mark that player manually jumped
-        playerJumped = true
-        print("[INPUT] Spacebar pressed - jump flag set")
     elseif k == Enum.KeyCode.W then
         keysPressed.W = true
     elseif k == Enum.KeyCode.A then
@@ -283,26 +298,7 @@ RunService.RenderStepped:Connect(function(dt)
     
     if not root or not hum then return end
     
-    -- Track air state for walk-off detection
     local onGround = (hum.FloorMaterial ~= Enum.Material.Air)
-    
-    -- Detect transition from ground to air
-    if not onGround and not wasInAir then
-        lastGroundY = root.Position.Y
-        -- If not in jumping state, it's a walk-off
-        if hum:GetState() ~= Enum.HumanoidStateType.Jumping then
-            playerJumped = false
-            print("[TRANSITION] Walked off edge from Y:", lastGroundY)
-        end
-    end
-    
-    -- Store current ground position
-    if onGround then
-        lastGroundY = root.Position.Y
-        healthBeforeFall = hum.Health -- Update health reference on ground
-    end
-    
-    wasInAir = not onGround
     
     -- --- AIRSTUCK (highest priority - returns early) ---
     if airstuckActive and airstuckPos then
@@ -326,13 +322,10 @@ RunService.RenderStepped:Connect(function(dt)
     -- --- JUMPBUG (SPACEBAR REQUIRED) ---
     if jumpbugActive and onGround and not isJumpingBug and UserInputService:IsKeyDown(Enum.KeyCode.Space) then
         isJumpingBug = true
-        playerJumped = true -- Mark as intentional jump
         task.spawn(function()
-            -- Auto crouch for 20-35ms
             hum.HipHeight = JB_CROUCH_HEIGHT
             task.wait(JB_AUTO_CROUCH_TIME)
             
-            -- Uncrouch
             hum.HipHeight = JB_NORMAL_HEIGHT
             task.wait(JB_LATENCY)
             
@@ -354,7 +347,6 @@ RunService.RenderStepped:Connect(function(dt)
     if bhopActive then
         hum.UseJumpPower = false
         hum.JumpHeight = 0.85
-        -- Override speed if edgebug is active
         if slideActive and (keysPressed.W or keysPressed.S) then
             hum.WalkSpeed = LOCKED_SLIDE_SPEED
         else
@@ -362,12 +354,10 @@ RunService.RenderStepped:Connect(function(dt)
         end
         
         if UserInputService:IsKeyDown(Enum.KeyCode.Space) and onGround then
-            playerJumped = true
             hum:ChangeState(Enum.HumanoidStateType.Jumping)
         end
     else
         hum.UseJumpPower = true
-        -- Override speed if edgebug is active
         if slideActive and (keysPressed.W or keysPressed.S) then
             hum.WalkSpeed = LOCKED_SLIDE_SPEED
         elseif not pixelsurfActive then
@@ -394,25 +384,22 @@ RunService.RenderStepped:Connect(function(dt)
     -- --- LONGJUMP ---
     if longjumpActive and onGround and (now - lastJumpTime) > JUMP_COOLDOWN then
         lastJumpTime = now
-        playerJumped = true
         hum:ChangeState(Enum.HumanoidStateType.Jumping)
         
         local lookDir = root.CFrame.LookVector
-        root.AssemblyLinearVelocity = Vector3.new(lookDir.X * 60, 26.6, lookDir.Z * 60)
+        root.AssemblyLinearVelocity = Vector3.new(lookDir.X * 63, 26.6, lookDir.Z * 60)
     end
     
     -- --- EDGEBUG SLIDE ---
     if slideActive then
-        -- Only activate if W or S is pressed
         if keysPressed.W or keysPressed.S then
             local camCF = camera.CFrame
             local forward = Vector3.new(camCF.LookVector.X, 0, camCF.LookVector.Z).Unit
             local moveDir
             
-            -- Only forward (W) or backward (S) movement
             if keysPressed.W then 
                 moveDir = forward
-            else -- keysPressed.S
+            else
                 moveDir = -forward
             end
             
@@ -424,10 +411,8 @@ RunService.RenderStepped:Connect(function(dt)
             bv.Parent = root
             Debris:AddItem(bv, 0.03)
             
-            -- Preserve momentum when landing (CS:GO style)
             if onGround and root and root.Parent then
                 local currentVel = root.AssemblyLinearVelocity
-                -- Keep horizontal velocity on landing
                 local newVelY = currentVel.Y > 0 and 0 or currentVel.Y
                 root.AssemblyLinearVelocity = Vector3.new(
                     slideCurrentVel.X,
@@ -436,19 +421,20 @@ RunService.RenderStepped:Connect(function(dt)
                 )
             end
         else
-            -- Reset velocity when no W/S pressed
             slideCurrentVel = Vector3.zero
         end
     else
-        -- Reset when edgebug is disabled
         slideCurrentVel = Vector3.zero
     end
     
-    -- --- PIXELSURF (works on ground and in air) ---
+    -- --- PIXELSURF (CAMERA-DEPENDENT WITH MANUAL CONTROL) ---
     if pixelsurfActive then
         local rayParams = RaycastParams.new()
         rayParams.FilterDescendantsInstances = {char}
         rayParams.FilterType = Enum.RaycastFilterType.Exclude
+        
+        -- Get camera look direction (horizontal only)
+        local camLookFlat = Vector3.new(camera.CFrame.LookVector.X, 0, camera.CFrame.LookVector.Z).Unit
         
         local directions = {
             root.CFrame.RightVector,
@@ -467,12 +453,10 @@ RunService.RenderStepped:Connect(function(dt)
         end
         
         if wallHit then
-            hum.WalkSpeed = PIXELSURF_WALKSPEED
-            hum.AutoRotate = false
-            
+            -- Calculate surf direction
             if not lockedSurfDir then
                 local currentVel = root.AssemblyLinearVelocity
-                local travelDir = currentVel.Magnitude > 1 and currentVel.Unit or root.CFrame.LookVector
+                local travelDir = currentVel.Magnitude > 1 and currentVel.Unit or camLookFlat
                 local tangent = Vector3.new(-wallHit.Normal.Z, 0, wallHit.Normal.X).Unit
                 
                 if tangent:Dot(travelDir) < (-tangent):Dot(travelDir) then
@@ -482,11 +466,39 @@ RunService.RenderStepped:Connect(function(dt)
                 lockedSurfDir = tangent
             end
             
-            local bv = Instance.new("BodyVelocity")
-            bv.MaxForce = Vector3.new(2e6, 2e6, 2e6)
-            bv.Velocity = (lockedSurfDir * PIXELSURF_WALKSPEED) + Vector3.new(0, root.AssemblyLinearVelocity.Y * PX_GRAVITY_REDUCTION, 0)
-            bv.Parent = root
-            Debris:AddItem(bv, 0.03)
+            -- Check if camera is looking in the same direction as surf direction
+            local dotProduct = camLookFlat:Dot(lockedSurfDir)
+            
+            -- Dot product > 0.766 means angle < 40° (cos(40°) ≈ 0.766)
+            -- This creates an 80° cone (40° left + 40° right) where pixelsurf works
+            if dotProduct > 0.766 then
+                -- Check if W or S is pressed for manual control
+                local moveMultiplier = 0
+                if keysPressed.W then
+                    moveMultiplier = 1 -- Move forward along wall
+                elseif keysPressed.S then
+                    moveMultiplier = -1 -- Move backward along wall
+                end
+                
+                -- Only apply velocity if W or S is pressed
+                if moveMultiplier ~= 0 then
+                    hum.WalkSpeed = PIXELSURF_WALKSPEED
+                    hum.AutoRotate = false
+                    
+                    local bv = Instance.new("BodyVelocity")
+                    bv.MaxForce = Vector3.new(2e6, 2e6, 2e6)
+                    bv.Velocity = (lockedSurfDir * PIXELSURF_WALKSPEED * moveMultiplier) + Vector3.new(0, root.AssemblyLinearVelocity.Y * PX_GRAVITY_REDUCTION, 0)
+                    bv.Parent = root
+                    Debris:AddItem(bv, 0.03)
+                else
+                    -- No input, stop movement but keep on wall
+                    hum.AutoRotate = false
+                end
+            else
+                -- Player looking at wrong angle, stop pixelsurf
+                lockedSurfDir = nil
+                hum.AutoRotate = true
+            end
         else
             lockedSurfDir = nil
             hum.AutoRotate = true
