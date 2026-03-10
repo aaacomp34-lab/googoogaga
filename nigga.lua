@@ -32,9 +32,32 @@
             -- // LIBRARY SETUP
             local _loader_name = string.char(108, 111, 97, 100, 115, 116, 114, 105, 110, 103)
             local _asset_path = "rbxassetid://" .. "7657867786"
-            local _library_source = game:GetObjects(_asset_path)[1].Source
-            local library = (getfenv()[_loader_name](_library_source))()
-            local Wait = library.subs.Wait
+            local library, Wait
+
+            local success, result = pcall(function()
+                local assets = game:GetObjects(_asset_path)
+                if not assets or #assets == 0 then
+                    error("Failed to load UI library asset. It may have been deleted.")
+                end
+                local _library_source = assets[1].Source
+                library = (getfenv()[_loader_name](_library_source))()
+                Wait = library.subs.Wait
+            end)
+
+            if not success then
+                warn("Pepsi's World Error: " .. tostring(result))
+                local errorGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
+                errorGui.ResetOnSpawn = false
+                local textLabel = Instance.new("TextLabel", errorGui)
+                textLabel.Size = UDim2.new(1, -20, 0, 50)
+                textLabel.Position = UDim2.new(0, 10, 0, 10)
+                textLabel.Text = "GUI failed to load. The library asset (ID: 7657867786) is likely deleted. Error: " .. tostring(result)
+                textLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
+                textLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+                textLabel.TextWrapped = true
+                textLabel.Font = Enum.Font.SourceSans
+                return -- Stop script execution
+            end
 
             -- // OBFUSCATED FUNCTIONS
             local _clipboard_setter_name = string.char(115, 101, 116, 99, 108, 105, 112, 98, 111, 97, 114, 100) -- "setclipboard"
