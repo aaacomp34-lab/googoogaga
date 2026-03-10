@@ -1,6 +1,16 @@
-    --// Gemini Code Assist: Stealth Enhancements
-            -- Note: True undetectability is a theoretical goal. These changes focus on
-            -- evading common signature-based and behavioral detection vectors.
+    -- // SECURITY BYPASS LAYER // --
+            local _G_JUNK = {}
+            for i = 1, 500 do
+                _G_JUNK[i] = math.random() * os.time()
+            end
+            local function _GenerateWorthlessData()
+                local str = ""
+                for i = 1, 10 do str = str .. string.char(math.random(65, 90)) end
+                return str
+            end
+            local _AntiDetection_Var = _GenerateWorthlessData()
+            local _Calculated_Hash = math.sin(os.time()) * 9999
+            -- // END SECURITY LAYER // --
 
             setfpscap(1500)
             local Players = game:GetService("Players")
@@ -12,6 +22,12 @@
 
             local player = Players.LocalPlayer
             local camera = workspace.CurrentCamera
+
+            -- // RANDOM MEMORY ALLOCATION
+            local _mem_alloc = {}
+            for i=1, 50 do _mem_alloc[i] = Vector3.new(math.random(), math.random(), math.random()) end
+            local _unused_flag = false
+            if tick() > 9999999999 then _unused_flag = true end
 
             -- // LIBRARY SETUP
             local _loader_name = string.char(108, 111, 97, 100, 115, 116, 114, 105, 110, 103)
@@ -49,54 +65,55 @@
 
             local PepsisWorld = library:CreateWindow({
                 Name = "im lwk autistic",
-                Themeable = { Info = "v1.2" }
+                Themeable = {
+                    Info = "im lwk autistic"
+                }
             })
 
             -- // TUNING VARIABLES
-            -- Gemini Code Assist: Randomized physics constants to avoid static signature detection.
             local DEFAULT_WALKSPEED = 16
             local PIXELSURF_WALKSPEED = 24
             local BHOP_SPEED = 26 -- Default value
             local BHOP_JUMP_HEIGHT = 0.73
 
             -- JUMPBUG
-            local JB_FORCE_AMOUNT = 13.2 + (math.random() * 0.4 - 0.2)
-            local JB_LATENCY = 0.0052 + (math.random() * 0.001)
+            local JB_FORCE_AMOUNT = 13.2
+            local JB_LATENCY = 0.0052
             local JUMP_COOLDOWN = 0.45
             local JB_CROUCH_HEIGHT = 0.5
             local JB_NORMAL_HEIGHT = 2.0
-            local JB_AUTO_CROUCH_TIME = 0.025 + (math.random() * 0.005)
+            local JB_AUTO_CROUCH_TIME = 0.025 
 
             -- MINIJUMP
             local MINIJUMP_JUMP_HEIGHT = 0.63
-            local MINIJUMP_CROUCH_TIME = 0.25 + (math.random() * 0.02)
+            local MINIJUMP_CROUCH_TIME = 0.25
             local MINIJUMP_COOLDOWN = 0.5
 
             -- FLASH BOOST / LONGJUMP
-            local FB_FORWARD_FORCE = 110 + (math.random() * 5 - 2.5)
-            local FB_UPWARD_FORCE = 43.2 + (math.random() * 2 - 1)
-            local LJ_FORWARD_FORCE = 34 + (math.random() * 2 - 1)
-            local LJ_UPWARD_FORCE = 25.5 + (math.random() * 1.5 - 0.75)
+            local FB_FORWARD_FORCE = 110
+            local FB_UPWARD_FORCE = 43.2
+            local LJ_FORWARD_FORCE = 34
+            local LJ_UPWARD_FORCE = 25.5
 
             -- EDGEBUG
             local EDGEBUG_DETECTION_RADIUS = 0.7
             local EDGEBUG_EDGE_THRESHOLD = 0.3
-            local EDGEBUG_SLIDE_SPEED = 25.8 + (math.random() * 0.5 - 0.25)
+            local EDGEBUG_SLIDE_SPEED = 25.8
             local EDGEBUG_MIN_HEIGHT = 0.3
 
             -- PIXELSURF
             local PX_WALL_DETECT_DIST = 0.5
             local PX_GRAVITY_REDUCTION = 0.05
             local PX_STICK_FORCE = 1-- How strongly to "stick" to the wall
-            local V_SURF_SPEED = 30 + (math.random() * 2 - 1)
-            local V_SURF_FORCE = 2e7 + math.random(-1e6, 1e6)
+            local V_SURF_SPEED = 30
+            local V_SURF_FORCE = 2e7
             local V_DETECT_DIST = 2.5
 
             -- PIXELHOP
-            local PIXELHOP_FORCE = 15 + (math.random() * 1 - 0.5)
-            local PIXELHOP_LATENCY = 0.0052 + (math.random() * 0.001)
+            local PIXELHOP_FORCE = 15
+            local PIXELHOP_LATENCY = 0.0052 
             local PIXELHOP_COOLDOWN = 0.3
-            local PIXELHOP_CROUCH_TIME = 0.025 + (math.random() * 0.005)
+            local PIXELHOP_CROUCH_TIME = 0.025 
             local PIXELHOP_WALL_DETECT_DIST = 1.2
 
             -- EDGEJUMP
@@ -178,14 +195,19 @@
             local connections = {}
             local mainLoopConnection = nil
 
+            -- // OBFUSCATION JUNK
+            local function _useless_math(a, b)
+                return (a * b) / (math.random(1, 5))
+            end
+
             -- // GUI - MOVEMENT TAB
             local MovementTab = PepsisWorld:CreateTab({
-                Name = "Movement"
+                Name = "movement shit"
             })
 
             -- LEFT TOP CORNER - Main Movement Features
             local MovementMain = MovementTab:CreateSection({
-                Name = "Primary",
+                Name = "idk",
                 Side = "Left"
             })
 
@@ -208,7 +230,7 @@
             -- END NEW BHOP
 
             MovementMain:AddToggle({
-                Name = "ledge jump",
+                Name = "edge jump",
                 Value = false,
                 Callback = function(val) Settings.EdgeJump = val end
             })
@@ -225,7 +247,7 @@
             })
 
             MovementMain:AddToggle({
-                Name = "ledge glide",
+                Name = "edgebug",
                 Value = false,
                 Callback = function(val) Settings.Edgebug = val end
             })
@@ -236,7 +258,7 @@
             })
 
             MovementMain:AddToggle({
-                Name = "high jump",
+                Name = "jump bug",
                 Value = false,
                 Callback = function(val) Settings.Jumpbug = val end
             })
@@ -258,7 +280,7 @@
             })
 
             MovementMain:AddToggle({
-                Name = "wall hop",
+                Name = "pixeljump",
                 Value = false,
                 Callback = function(val) Settings.Pixelhop = val end
             })
@@ -271,7 +293,7 @@
 
             -- RIGHT TOP CORNER - Secondary Movement Features
             local MovementSub = MovementTab:CreateSection({
-                Name = "Secondary",
+                Name = "idk",
                 Side = "Right"
             })
 
@@ -289,7 +311,7 @@
             })
 
             MovementSub:AddToggle({
-                Name = "ladder boost",
+                Name = "fast ladder",
                 Value = false,
                 Callback = function(val) Settings.VSurf = val end
             })
@@ -300,7 +322,7 @@
             })
 
             MovementSub:AddToggle({
-                Name = "air freeze",
+                Name = "air stuck",
                 Value = false,
                 Callback = function(val) Settings.Airstuck = val end
             })
@@ -341,14 +363,14 @@
 
             -- LEFT BOTTOM CORNER - Passive Features
             local PassiveSection = MovementTab:CreateSection({
-                Name = "Passive",
+                Name = "idk",
                 Side = "Left"
             })
 
             PassiveSection:AddToggle({
-                Name = "safe landing",
+                Name = "fall dmg off",
                 Value = false,
-                Callback = function(val)
+                Callback = function(val) 
                     Settings.NoFall = val 
                 end
             })
@@ -365,11 +387,11 @@
 
             -- // COMBAT TAB - AIMBOT
             local CombatTab = PepsisWorld:CreateTab({
-                Name = "Combat"
+                Name = "shooting shit"
             })
 
             local AimbotSection = CombatTab:CreateSection({
-                Name = "Aim Assist",
+                Name = "aimbot",
                 Side = "Left"
             })
 
@@ -383,8 +405,7 @@
                 WallCheck = false,
                 FOVColor = Color3.fromRGB(255, 255, 255),
                 RainbowFOV = false,
-                RainbowSpeed = 10,
-                Smoothing = 0.15 -- Gemini: Lower = Slower/Smoother, Higher = Faster/Snappier
+                RainbowSpeed = 10
             }
 
             -- Aimbot Variables
@@ -528,7 +549,7 @@
 
             -- Aimbot GUI Controls
             local aimbotToggle = AimbotSection:AddToggle({
-                Name = "enable aim assist",
+                Name = "aimbot",
                 Value = false,
                 Callback = function(val)
                     AimbotSettings.Enabled = val
@@ -542,7 +563,7 @@
             })
 
             local aimbotBind = AimbotSection:AddKeybind({
-                Name = "aim key",
+                Name = "aimbot bind",
                 Value = Enum.UserInputType.MouseButton2,
                 Callback = function(key)
                     AimbotSettings.LockOnKey = key
@@ -557,18 +578,6 @@
                 Callback = function(val)
                     AimbotSettings.FOV = val
                     updateFOVCircle()
-                end
-            })
-
-            -- Gemini: Added smoothing control for behavioral detection evasion.
-            local aimbotSmoothingSlider = AimbotSection:AddSlider({
-                Name = "aim smoothing",
-                Min = 0.01,
-                Max = 1,
-                Value = AimbotSettings.Smoothing,
-                Increment = 0.01,
-                Callback = function(val)
-                    AimbotSettings.Smoothing = val
                 end
             })
 
@@ -636,7 +645,6 @@
                 
                 if aimbotBind then aimbotBind.Visible = enabled end
                 if aimbotFovSlider then aimbotFovSlider.Visible = enabled end
-                if aimbotSmoothingSlider then aimbotSmoothingSlider.Visible = enabled end
                 if aimbotShowFov then aimbotShowFov.Visible = enabled end
                 if aimbotRainbowFov then aimbotRainbowFov.Visible = enabled end
                 if rainbowSpeedSlider then rainbowSpeedSlider.Visible = enabled and AimbotSettings.RainbowFOV end
@@ -803,10 +811,12 @@
                         end
                     end
                     
-                    -- Gemini: Removed the extremely risky FireServer/InvokeServer hook.
-                    -- This was a major detection vector and could break game functionality.
-                    -- The TakeDamage and Health hooks below are more targeted for the same purpose,
-                    -- though still carry detection risk.
+                    if method == "FireServer" or method == "InvokeServer" then
+                        local name = tostring(self)
+                        if name:lower():find("damage") or name:lower():find("fall") or name:lower():find("hurt") or name:lower():find("health") then
+                            return
+                        end
+                    end
                 end
                 
                 return oldNamecall(self, ...)
@@ -979,11 +989,7 @@
                             currentTarget = newTarget
                             
                             pcall(function()
-                                -- Gemini: Humanized aimbot with randomized smoothing to evade behavioral detection.
-                                local targetCFrame = CFrame.lookAt(camera.CFrame.Position, currentTarget.Position)
-                                -- Introduce slight randomness to the smoothing factor each frame to make the curve less perfect.
-                                local frameSmoothing = AimbotSettings.Smoothing * (1 + (math.random() * 0.2 - 0.1))
-                                camera.CFrame = camera.CFrame:Lerp(targetCFrame, math.clamp(frameSmoothing, 0.01, 1))
+                                camera.CFrame = CFrame.lookAt(camera.CFrame.Position, currentTarget.Position)
                             end)
                         else
                             currentTarget = nil
@@ -1038,17 +1044,15 @@
                         isJumpingBug = true
                         task.spawn(function()
                             currentHum.HipHeight = JB_CROUCH_HEIGHT
-                            task.wait(JB_AUTO_CROUCH_TIME + (math.random() * 0.005))
+                            task.wait(JB_AUTO_CROUCH_TIME)
                             currentHum.HipHeight = JB_NORMAL_HEIGHT
-                            task.wait(JB_LATENCY + (math.random() * 0.002))
+                            task.wait(JB_LATENCY)
                             
                             local currentVel = currentRoot.AssemblyLinearVelocity
                             currentRoot.AssemblyLinearVelocity = Vector3.new(currentVel.X, JB_FORCE_AMOUNT * 2, currentVel.Z)
                             
                             local jbBoost = Instance.new("BodyVelocity")
-                            jbBoost.Name = tostring(math.random()) -- Gemini: Random name to avoid signature.
-                            -- Gemini: Randomized MaxForce to avoid static property detection.
-                            jbBoost.MaxForce = Vector3.new(0, 1e7 + math.random(-1e6, 1e6), 0)
+                            jbBoost.MaxForce = Vector3.new(0, 1e7, 0)
                             jbBoost.Velocity = Vector3.new(0, JB_FORCE_AMOUNT, 0)
                             jbBoost.Parent = currentRoot
                             Debris:AddItem(jbBoost, 0.15)
@@ -1065,7 +1069,7 @@
 
                         task.spawn(function()
                             VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
-                            task.wait(0.15 + math.random() * 0.02)
+                            task.wait(0.15)
                             VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
                         end)
 
@@ -1088,9 +1092,9 @@
                                     moveDir.Z * LJ_FORWARD_FORCE
                                 )
                             else
+                                if longjumpBV then longjumpBV:Destroy() end
                                 longjumpBV = Instance.new("BodyVelocity")
-                                longjumpBV.Name = tostring(math.random())
-                                longjumpBV.MaxForce = Vector3.new(1e7 + math.random(-1e6, 1e6), 0, 1e7 + math.random(-1e6, 1e6))
+                                longjumpBV.MaxForce = Vector3.new(1e7, 0, 1e7)
                                 longjumpBV.Velocity = Vector3.new(moveDir.X * LJ_FORWARD_FORCE, 0, moveDir.Z * LJ_FORWARD_FORCE)
                                 longjumpBV.Parent = currentRoot
                             end
@@ -1118,7 +1122,7 @@
 
                             -- Always crouch during minijump regardless of Autoduck setting
                             VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
-                            task.wait(MINIJUMP_CROUCH_TIME + math.random() * 0.02)
+                            task.wait(MINIJUMP_CROUCH_TIME)
                             VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
                         end)
                     end
@@ -1163,7 +1167,7 @@
 
                                         task.spawn(function()
                                             VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
-                                            task.wait(0.2 + math.random() * 0.03)
+                                            task.wait(0.2)
                                             VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
                                         end)
 
@@ -1178,7 +1182,7 @@
                                             currentHum:ChangeState(Enum.HumanoidStateType.Jumping)
                                         else
                                             VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.Space, false, game)
-                                            task.wait(0.05 + math.random() * 0.01)
+                                            task.wait(0.05)
                                             VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.Space, false, game)
                                         end
                                     end
@@ -1208,8 +1212,7 @@
                     -- VERTICAL SURF (Must hold key)
                     if isVSurfing then
                         local bv = Instance.new("BodyVelocity")
-                        bv.Name = tostring(math.random())
-                        bv.MaxForce = Vector3.new(0, V_SURF_FORCE + math.random(-1e6, 1e6), 0)
+                        bv.MaxForce = Vector3.new(0, V_SURF_FORCE, 0)
                         bv.Parent = currentRoot
                         bv.Velocity = Vector3.new(0, V_SURF_SPEED, 0)
                         Debris:AddItem(bv, dt)
@@ -1240,8 +1243,7 @@
                         if edgebugOnEdge and edgeSlideDirection then
                             if not edgebugBV then
                                 edgebugBV = Instance.new("BodyVelocity")
-                                edgebugBV.Name = tostring(math.random())
-                                edgebugBV.MaxForce = Vector3.new(1e7 + math.random(-1e6, 1e6), 1e7, 1e7 + math.random(-1e6, 1e6))
+                                edgebugBV.MaxForce = Vector3.new(1e7, 1e7, 1e7)
                                 edgebugBV.Parent = currentRoot
                             end
                             
@@ -1298,8 +1300,7 @@
                             
                             if not pixelsurfBV or pixelsurfBV.Parent ~= currentRoot then
                                 pixelsurfBV = Instance.new("BodyVelocity")
-                                pixelsurfBV.Name = tostring(math.random())
-                                pixelsurfBV.MaxForce = Vector3.new(2e6 + math.random(-1e5, 1e5), 2e6, 2e6 + math.random(-1e5, 1e5))
+                                pixelsurfBV.MaxForce = Vector3.new(2e6, 2e6, 2e6)
                                 pixelsurfBV.Parent = currentRoot
                             end
 
@@ -1384,13 +1385,12 @@
                                 if not hum or not root then isPixelhopping = false; return end
 
                                 hum.HipHeight = JB_CROUCH_HEIGHT
-                                task.wait(PIXELHOP_CROUCH_TIME + math.random() * 0.005)
+                                task.wait(PIXELHOP_CROUCH_TIME)
                                 hum.HipHeight = JB_NORMAL_HEIGHT
-                                task.wait(PIXELHOP_LATENCY + math.random() * 0.002)
+                                task.wait(PIXELHOP_LATENCY)
                                 
                                 local phBoost = Instance.new("BodyVelocity")
-                                phBoost.Name = tostring(math.random())
-                                phBoost.MaxForce = Vector3.new(0, 1e7 + math.random(-1e6, 1e6), 0)
+                                phBoost.MaxForce = Vector3.new(0, 1e7, 0)
                                 phBoost.Velocity = Vector3.new(0, PIXELHOP_FORCE, 0)
                                 phBoost.Parent = root
                                 Debris:AddItem(phBoost, 0.12)
