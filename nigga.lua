@@ -1,4 +1,4 @@
-    -- // SECURITY BYPASS LAYER // --
+-- // SECURITY BYPASS LAYER // --
             local _G_JUNK = {}
             for i = 1, 500 do
                 _G_JUNK[i] = math.random() * os.time()
