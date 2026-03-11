@@ -633,6 +633,145 @@
             -- Initialize FOV Circle
             createFOVCircle()
 
+            -- // SKINS TAB
+            local SkinsTab = PepsisWorld:CreateTab({
+                Name = "skins shit"
+            })
+
+            local KnifeSection = SkinsTab:CreateSection({
+                Name = "knife changer",
+                Side = "Left"
+            })
+
+            -- Skin changer logic
+            local skins = {
+                AK47 = {},
+                AWP = {},
+                M4A1 = {},
+                SG = {},
+                M4A4 = {},
+                DesertEagle = {},
+                USP = {},
+                P250 = {},
+                Scout = {},
+            }
+            local Handlers = {
+                Skins = {
+                    CT = {},
+                    T = {},
+                    Game = {}
+                },
+                Knives = {
+                    List = {
+                        "None",
+                        "Banana",
+                        "Bayonet",
+                        "Bearded Axe",
+                        "Butterfly Knife",
+                        "Cleaver",
+                        "Crowbar",
+                        "Falchion Knife",
+                        "Gut Knife",
+                        "Huntsman Knife",
+                        "Karambit",
+                        "Sickle"
+                    },
+                    Current = { T = nil, CT = nil }
+                }
+            }
+            local selectedKnife = ""
+            function Handlers.Apply(Type, Item)
+                return function()
+                    if Type == "Knife" then
+                        local Skins = player:FindFirstChild("SkinFolder")
+                        local Viewmodels = ReplicatedStorage:FindFirstChild("Viewmodels")
+                        if not Viewmodels or not Skins then return end
+                        local Selected = selectedKnife
+                        local Team
+                        if player.Team and player.Team.Name == "Terrorists" then
+                            Team = "T"
+                        else
+                            Team = "CT"
+                        end
+                        local Default = "v_" .. Team .. " Knife"
+                        local skin = "Stock"
+                        if Team == "T" then
+                            Skins.TFolder.Knife.Value = Selected
+                            Skins.TFolder.TKnife.Value = skin
+                        else
+                            Skins.CTFolder.CTKnife.Value = skin
+                            Skins.CTFolder.Knife.Value = Selected
+                        end
+
+                        local Knife = Handlers.Knives.Current[Team]
+
+                        if Knife and Knife ~= Selected then
+                            local Equipped = Viewmodels:FindFirstChild(Default)
+                            if Equipped then
+                                Equipped.Name = "v_" .. Knife
+                            end
+                        end
+                        if Selected ~= "None" then
+                            if Knife ~= Selected then
+                                if not Knife then
+                                    local OriginalDefault = Viewmodels:FindFirstChild(Default)
+                                    if OriginalDefault then
+                                        OriginalDefault.Name = "None"
+                                    end
+                                end
+                                local New = Viewmodels:FindFirstChild("v_" .. Selected)
+                                if New then
+                                    New.Name = Default
+                                    Handlers.Knives.Current[Team] = Selected
+                                end
+                            end
+                        else
+                            if Knife then
+                                local OriginalDefault = Viewmodels:FindFirstChild("None")
+                                if OriginalDefault then
+                                    OriginalDefault.Name = Default
+                                end
+                            end
+                            Handlers.Knives.Current[Team] = nil
+                            if Team == "T" then
+                                Skins.TFolder.Knife.Value = nil
+                                Skins.TFolder.TKnife.Value = "Stock"
+                            else
+                                Skins.CTFolder.CTKnife.Value = nil
+                                Skins.CTFolder.Knife.Value = "Stock"
+                            end
+                        end
+                    end
+                end
+            end
+            table.sort(Handlers.Knives.List, function(a, b)
+                if a == "None" then return true end
+                if b == "None" then return false end
+                return a < b
+            end)
+
+            KnifeSection:AddDropdown({
+                Name = "knife",
+                List = Handlers.Knives.List,
+                Callback = function(val)
+                    selectedKnife = val
+                    Handlers.Apply("Knife", val)()
+                end
+            })
+
+            pcall(function()
+                local SkinsFolder = ReplicatedStorage:WaitForChild("Skins", 5)
+                if not SkinsFolder then return end
+                for _, gunFolder in ipairs(SkinsFolder:GetChildren()) do
+                    local gunName = gunFolder.Name
+                    if skins[gunName] then
+                        for _, skin in ipairs(gunFolder:GetChildren()) do
+                            table.insert(skins[gunName], skin.Name)
+                        end
+                    end
+                end
+            end)
+
 
             -- // LOGIC IMPLEMENTATION
 
