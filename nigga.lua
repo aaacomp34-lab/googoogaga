@@ -1,73 +1,10 @@
---[Obfuscated by Hercules v1.6.2 | hercules-obfuscator.xyz/discord | hercules-obfuscator.xyz/source]
-if true then local _ = 65 end
-local function mmwpgc(hsfnzs) local _ = 81 end
-local function qahqzo(jkshye) local _ = 8 end
-if false then local _ = 16 end
-if false then local _ = 55 end
-local function oyaeez(ggqvdo) local _ = 100 end
-local snjwns = 45
-if false then local _ = 76 end
-while false do local _ = 70 break end
-local thing = 2485;
-local thing2 = 4813;
-local counter = 0;
-local threshold = 3261;
-while thing < thing2 and counter < 3 do
-    thing = thing + 776;
-    counter = counter + 1;
-    if thing < threshold then
-        local x = 34; x = x - 5;
-    else
-        while false do local _ = 65 break end
-local trbpay = 48
-if true then local _ = 2 end
-while false do local _ = 10 break end
-while false do local _ = 94 break end
-if false then local _ = 30 end
-if true then local _ = 78 end
-local ltdpqg = 76
-if true then local _ = 11 end
-if true then local _ = 88 end
-while false do local _ = 13 break end
-if false then local _ = 49 end
-if true then local _ = 27 end
-if false then local _ = 34 end
-if true then local _ = 98 end
-local function LVDHfJLHWM(MzQOKMtpam)
-    return (MzQOKMtpam >= 48 and MzQOKMtpam <= 57) or (MzQOKMtpam >= 65 and MzQOKMtpam <= 90) or (MzQOKMtpam >= 97 and MzQOKMtpam <= 122)
-end
-	
-local function jMgrYJepNsVb(xYOOMLvvtR, KkEMsRPJjhk)
-    local FDpsFBANAQQy = {}
-    for i = 1, #xYOOMLvvtR do
-        local MzQOKMtpam = xYOOMLvvtR:byte(i)
-        if LVDHfJLHWM(MzQOKMtpam) then
-            local wewTaHXkP            if MzQOKMtpam >= 48 and MzQOKMtpam <= 57 then
-                wewTaHXkP = ((MzQOKMtpam - 48 - KkEMsRPJjhk + 10) % 10) + 48
-            elseif MzQOKMtpam >= 65 and MzQOKMtpam <= 90 then
-                wewTaHXkP = ((MzQOKMtpam - 65 - KkEMsRPJjhk + 26) % 26) + 65
-            elseif MzQOKMtpam >= 97 and MzQOKMtpam <= 122 then
-                wewTaHXkP = ((MzQOKMtpam - 97 - KkEMsRPJjhk + 26) % 26) + 97
-            end
-            table.insert(FDpsFBANAQQy, string.char(wewTaHXkP))
-        else
-            table.insert(FDpsFBANAQQy, string.char(MzQOKMtpam))
-        end
-    end
-    return table.concat(FDpsFBANAQQy)
-end
-
-local function LVDHfJLHWM(MzQOKMtpam)
-    return (MzQOKMtpam >= 48 and MzQOKMtpam <= 57) or (MzQOKMtpam >= 65 and MzQOKMtpam <= 90) or (MzQOKMtpam >= 97 and MzQOKMtpam <= 122)
-end
-
     -- // SECURITY BYPASS LAYER // --
             local _G_JUNK = {}
             for i = 1, 500 do
                 _G_JUNK[i] = math.random() * os.time()
             end
             local function _GenerateWorthlessData()
-                local str = jMgrYJepNsVb("", 3)
+                local str = ""
                 for i = 1, 10 do str = str .. string.char(math.random(65, 90)) end
                 return str
             end
@@ -76,12 +13,12 @@ end
             -- // END SECURITY LAYER // --
 
             setfpscap(1500)
-            local Players = game:GetService(jMgrYJepNsVb("Hdsqwjk", 18))
-            local UserInputService = game:GetService(jMgrYJepNsVb("HfreVachgFreivpr", 13))
-            local RunService = game:GetService(jMgrYJepNsVb("WzsXjwanhj", 5))
-            local Debris = game:GetService(jMgrYJepNsVb("Cdaqhr", 25))
-            local ReplicatedStorage = game:GetService(jMgrYJepNsVb("JwhdauslwvKlgjsyw", 18))
-            local VirtualInputManager = game:GetService(jMgrYJepNsVb("WjsuvbmJoqvuNbobhfs", 1))
+            local Players = game:GetService("Players")
+            local UserInputService = game:GetService("UserInputService")
+            local RunService = game:GetService("RunService")
+            local Debris = game:GetService("Debris")
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            local VirtualInputManager = game:GetService("VirtualInputManager")
 
             local player = Players.LocalPlayer
             local camera = workspace.CurrentCamera
@@ -94,42 +31,19 @@ end
 
             -- // LIBRARY SETUP
             local _loader_name = string.char(108, 111, 97, 100, 115, 116, 114, 105, 110, 103)
-            local _asset_path = jMgrYJepNsVb("ueadvvhwlg://", 3) .. jMgrYJepNsVb("1091201120", 4)
-            local library, Wait
-
-            local success, result = pcall(function()
-                local assets = game:GetObjects(_asset_path)
-                if not assets or #assets == 0 then
-                    error(jMgrYJepNsVb("Ytbexw mh ehtw NB ebuktkr tllxm. Bm ftr atox uxxg wxexmxw.", 19))
-                end
-                local _library_source = assets[1].Source
-                library = (getfenv()[_loader_name](_library_source))()
-                Wait = library.subs.Wait
-            end)
-
-            if not success then
-                warn(jMgrYJepNsVb("Fufiy'i Mehbt Uhheh: ", 16) .. tostring(result))
-                local errorGui = Instance.new(jMgrYJepNsVb("XhwjjsLzn", 5), game:GetService(jMgrYJepNsVb("DpsfHvj", 1)))
-                errorGui.ResetOnSpawn = false
-                local textLabel = Instance.new(jMgrYJepNsVb("OzsoGvwzg", 21), errorGui)
-                textLabel.Size = UDim2.new(1, -20, 0, 50)
-                textLabel.Position = UDim2.new(0, 10, 0, 10)
-                textLabel.Text = jMgrYJepNsVb("WKY vqybut je beqt. Jxu byrhqho qiiuj (YT: 3213423342) yi byaubo tubujut. Uhheh: ", 16) .. tostring(result)
-                textLabel.TextColor3 = Color3.fromRGB(255, 80, 80)
-                textLabel.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-                textLabel.TextWrapped = true
-                textLabel.Font = Enum.Font.SourceSans
-                return -- Stop script execution
-            end
+            local _asset_path = "rbxassetid://" .. "7657867786"
+            local _library_source = game:GetObjects(_asset_path)[1].Source
+            local library = (getfenv()[_loader_name](_library_source))()
+            local Wait = library.subs.Wait
 
             -- // OBFUSCATED FUNCTIONS
-            local _clipboard_setter_name = string.char(115, 101, 116, 99, 108, 105, 112, 98, 111, 97, 114, 100) -- jMgrYJepNsVb("qcrajgnzmypb", 24)
+            local _clipboard_setter_name = string.char(115, 101, 116, 99, 108, 105, 112, 98, 111, 97, 114, 100) -- "setclipboard"
             local _setclipboard = getfenv()[_clipboard_setter_name]
 
             local PepsisWorld = library:CreateWindow({
-                Name = jMgrYJepNsVb("mq pao eyxmwxmg", 4),
+                Name = "im lwk autistic",
                 Themeable = {
-                    Info = jMgrYJepNsVb("sw vgu kedscdsm", 10)
+                    Info = "im lwk autistic"
                 }
             })
 
@@ -155,7 +69,7 @@ end
             -- FLASH BOOST / LONGJUMP
             local FB_FORWARD_FORCE = 110
             local FB_UPWARD_FORCE = 43.2
-            local LJ_FORWARD_FORCE = 34
+            local LJ_FORWARD_FORCE = 36
             local LJ_UPWARD_FORCE = 25.5
 
             -- EDGEBUG
@@ -165,9 +79,8 @@ end
             local EDGEBUG_MIN_HEIGHT = 0.3
 
             -- PIXELSURF
-            local PX_WALL_DETECT_DIST = 0.5
+            local PX_WALL_DETECT_DIST = 1.5
             local PX_GRAVITY_REDUCTION = 0.05
-            local PX_STICK_FORCE = 1-- How strongly to jMgrYJepNsVb("jkztb", 17) to the wall
             local V_SURF_SPEED = 30
             local V_SURF_FORCE = 2e7
             local V_DETECT_DIST = 2.5
@@ -265,24 +178,24 @@ end
 
             -- // GUI - MOVEMENT TAB
             local MovementTab = PepsisWorld:CreateTab({
-                Name = jMgrYJepNsVb("vxenvnwc bqrc", 9)
+                Name = "movement shit"
             })
 
             -- LEFT TOP CORNER - Main Movement Features
             local MovementMain = MovementTab:CreateSection({
-                Name = jMgrYJepNsVb("vqx", 13),
-                Side = jMgrYJepNsVb("Rklz", 6)
+                Name = "idk",
+                Side = "Left"
             })
 
             -- NEW BHOP FUNCTIONALITY
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("gmtu", 5),
+                Name = "bhop",
                 Value = false,
                 Callback = function(val) Settings.Bhop = val end
             })
 
             MovementMain:AddSlider({
-                Name = jMgrYJepNsVb("kqxy bynnm", 9),
+                Name = "bhop speed",
                 Min = 16,
                 Max = 75,
                 Value = 26,
@@ -293,62 +206,62 @@ end
             -- END NEW BHOP
 
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("mlom rcux", 8),
+                Name = "edge jump",
                 Value = false,
                 Callback = function(val) Settings.EdgeJump = val end
             })
 
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("ybatwhzc", 13),
+                Name = "longjump",
                 Value = false,
                 Callback = function(val) Settings.Longjump = val end
             })
             MovementMain:AddKeybind({
-                Name = jMgrYJepNsVb("hotj", 6),
+                Name = "bind",
                 Value = Binds.Longjump,
                 Callback = function(key) Binds.Longjump = key end
             })
 
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("azcaxqc", 22),
+                Name = "edgebug",
                 Value = false,
                 Callback = function(val) Settings.Edgebug = val end
             })
             MovementMain:AddKeybind({
-                Name = jMgrYJepNsVb("hotj", 6),
+                Name = "bind",
                 Value = Binds.Edgebug,
                 Callback = function(key) Binds.Edgebug = key end
             })
 
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("ufxa mfr", 11),
+                Name = "jump bug",
                 Value = false,
                 Callback = function(val) Settings.Jumpbug = val end
             })
             MovementMain:AddKeybind({
-                Name = jMgrYJepNsVb("rydt", 16),
+                Name = "bind",
                 Value = Binds.Jumpbug,
                 Callback = function(key) Binds.Jumpbug = key end
             })
 
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("zshovcebp", 10),
+                Name = "pixelsurf",
                 Value = false,
                 Callback = function(val) Settings.Pixelsurf = val end
             })
             MovementMain:AddKeybind({
-                Name = jMgrYJepNsVb("nuzp", 12),
+                Name = "bind",
                 Value = Binds.Pixelsurf,
                 Callback = function(key) Binds.Pixelsurf = key end
             })
 
             MovementMain:AddToggle({
-                Name = jMgrYJepNsVb("qjyfmkvnq", 1),
+                Name = "pixeljump",
                 Value = false,
                 Callback = function(val) Settings.Pixelhop = val end
             })
             MovementMain:AddKeybind({
-                Name = jMgrYJepNsVb("hotj", 6),
+                Name = "bind",
                 Value = Binds.Pixelhop,
                 Callback = function(key) Binds.Pixelhop = key end
             })
@@ -356,17 +269,17 @@ end
 
             -- RIGHT TOP CORNER - Secondary Movement Features
             local MovementSub = MovementTab:CreateSection({
-                Name = jMgrYJepNsVb("bwd", 19),
-                Side = jMgrYJepNsVb("Vmklx", 4)
+                Name = "idk",
+                Side = "Right"
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("mshzoivvza", 7),
+                Name = "flashboost",
                 Value = false,
                 Callback = function(val) Settings.FlashBoost = val end
             })
             MovementSub:AddKeybind({
-                Name = jMgrYJepNsVb("hotj", 6),
+                Name = "bind",
                 Value = Binds.FlashBoost,
                 Callback = function(key) 
                     Binds.FlashBoost = key 
@@ -374,64 +287,64 @@ end
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("rmef xmppqd", 12),
+                Name = "fast ladder",
                 Value = false,
                 Callback = function(val) Settings.VSurf = val end
             })
             MovementSub:AddKeybind({
-                Name = jMgrYJepNsVb("rydt", 16),
+                Name = "bind",
                 Value = Binds.VSurf,
                 Callback = function(key) Binds.VSurf = key end
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("nve fghpx", 13),
+                Name = "air stuck",
                 Value = false,
                 Callback = function(val) Settings.Airstuck = val end
             })
             MovementSub:AddKeybind({
-                Name = jMgrYJepNsVb("rydt", 16),
+                Name = "bind",
                 Value = Binds.Airstuck,
                 Callback = function(key) Binds.Airstuck = key end
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("njojkvnq", 1),
+                Name = "minijump",
                 Value = false,
                 Callback = function(val) Settings.Minijump = val end
             })
             MovementSub:AddKeybind({
-                Name = jMgrYJepNsVb("szeu", 17),
+                Name = "bind",
                 Value = Binds.Minijump,
                 Callback = function(key) Binds.Minijump = key end
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("jdcxmdlt", 9),
+                Name = "autoduck",
                 Value = false,
                 Callback = function(val) Settings.Autoduck = val end
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("kfxy xytu", 5),
+                Name = "fast stop",
                 Value = false,
                 Callback = function(val) Settings.FastStop = val end
             })
 
             MovementSub:AddToggle({
-                Name = jMgrYJepNsVb("volghzdon", 3),
+                Name = "slidewalk",
                 Value = false,
                 Callback = function(val) Settings.Slidewalk = val end
             })
 
             -- LEFT BOTTOM CORNER - Passive Features
             local PassiveSection = MovementTab:CreateSection({
-                Name = jMgrYJepNsVb("dyf", 21),
-                Side = jMgrYJepNsVb("Tmnb", 8)
+                Name = "idk",
+                Side = "Left"
             })
 
             PassiveSection:AddToggle({
-                Name = jMgrYJepNsVb("hcnn foi qhh", 2),
+                Name = "fall dmg off",
                 Value = false,
                 Callback = function(val) 
                     Settings.NoFall = val 
@@ -439,7 +352,7 @@ end
             })
 
             PassiveSection:AddToggle({
-                Name = jMgrYJepNsVb("qadrz qdi", 15),
+                Name = "block bot",
                 Value = false,
                 Callback = function(val) 
                     Settings.BlockBot = val
@@ -450,12 +363,12 @@ end
 
             -- // COMBAT TAB - AIMBOT
             local CombatTab = PepsisWorld:CreateTab({
-                Name = jMgrYJepNsVb("odkkpejc odep", 22)
+                Name = "shooting shit"
             })
 
             local AimbotSection = CombatTab:CreateSection({
-                Name = jMgrYJepNsVb("hptiva", 7),
-                Side = jMgrYJepNsVb("Buvj", 16)
+                Name = "aimbot",
+                Side = "Left"
             })
 
             -- Aimbot Settings
@@ -492,16 +405,16 @@ end
                 fovCircle = nil
                 
                 local success, err = pcall(function()
-                    fovCircleGui = Instance.new(jMgrYJepNsVb("NxmzziBpd", 21))
-                    fovCircleGui.Name = jMgrYJepNsVb("ZIPWclwfy", 20)
+                    fovCircleGui = Instance.new("ScreenGui")
+                    fovCircleGui.Name = "FOVCircle"
                     fovCircleGui.IgnoreGuiInset = true
                     fovCircleGui.ResetOnSpawn = false
                     
                     local coreGuiSuccess = pcall(function()
-                        fovCircleGui.Parent = game:GetService(jMgrYJepNsVb("MyboQes", 10))
+                        fovCircleGui.Parent = game:GetService("CoreGui")
                     end)
                     if not coreGuiSuccess then
-                        local playerGui = player:WaitForChild(jMgrYJepNsVb("LhwuanCqe", 22), 5)
+                        local playerGui = player:WaitForChild("PlayerGui", 5)
                         if playerGui then
                             fovCircleGui.Parent = playerGui
                         else
@@ -509,19 +422,19 @@ end
                         end
                     end
                     
-                    local circle = Instance.new(jMgrYJepNsVb("Myhtl", 7))
-                    circle.Name = jMgrYJepNsVb("Gmvgpi", 4)
+                    local circle = Instance.new("Frame")
+                    circle.Name = "Circle"
                     circle.AnchorPoint = Vector2.new(0.5, 0.5)
                     circle.BackgroundTransparency = 1
                     circle.Size = UDim2.new(0, AimbotSettings.FOV * 2, 0, AimbotSettings.FOV * 2)
                     circle.Position = UDim2.new(0.5, 0, 0.5, 0)
                     circle.Parent = fovCircleGui
                     
-                    local corner = Instance.new(jMgrYJepNsVb("ZNHtwsjw", 5))
+                    local corner = Instance.new("UICorner")
                     corner.CornerRadius = UDim.new(1, 0)
                     corner.Parent = circle
                     
-                    local stroke = Instance.new(jMgrYJepNsVb("PDNomjfz", 21))
+                    local stroke = Instance.new("UIStroke")
                     stroke.Color = AimbotSettings.FOVColor
                     stroke.Thickness = 2
                     stroke.Transparency = 0
@@ -533,7 +446,7 @@ end
                 end)
                 
                 if not success then
-                    warn(jMgrYJepNsVb("Qltwpo ez ncplep QZG ntcnwp:", 11), err)
+                    warn("Failed to create FOV circle:", err)
                 end
             end
 
@@ -550,7 +463,7 @@ end
                     fovCircle.Size = UDim2.new(0, AimbotSettings.FOV * 2, 0, AimbotSettings.FOV * 2)
                     fovCircle.Visible = AimbotSettings.ShowFOV and AimbotSettings.Enabled
                     if fovCircle and not AimbotSettings.RainbowFOV then
-                        local stroke = fovCircle:FindFirstChild(jMgrYJepNsVb("PDNomjfz", 21))
+                        local stroke = fovCircle:FindFirstChild("UIStroke")
                         if stroke then
                             stroke.Color = AimbotSettings.FOVColor
                         end
@@ -572,7 +485,7 @@ end
                             end
                         end
                         
-                        local head = otherPlayer.Character:FindFirstChild(jMgrYJepNsVb("Ebxa", 23))
+                        local head = otherPlayer.Character:FindFirstChild("Head")
                         if head then
                             local screenPos, onScreen = camera:WorldToViewportPoint(head.Position)
                             
@@ -612,7 +525,7 @@ end
 
             -- Aimbot GUI Controls
             local aimbotToggle = AimbotSection:AddToggle({
-                Name = jMgrYJepNsVb("muynaf", 12),
+                Name = "aimbot",
                 Value = false,
                 Callback = function(val)
                     AimbotSettings.Enabled = val
@@ -626,7 +539,7 @@ end
             })
 
             local aimbotBind = AimbotSection:AddKeybind({
-                Name = jMgrYJepNsVb("weixkp xejz", 22),
+                Name = "aimbot bind",
                 Value = Enum.UserInputType.MouseButton2,
                 Callback = function(key)
                     AimbotSettings.LockOnKey = key
@@ -634,7 +547,7 @@ end
             })
 
             local aimbotFovSlider = AimbotSection:AddSlider({
-                Name = jMgrYJepNsVb("mvc zpgl", 7),
+                Name = "fov size",
                 Min = 50,
                 Max = 250,
                 Value = 100,
@@ -645,7 +558,7 @@ end
             })
 
             local aimbotShowFov = AimbotSection:AddToggle({
-                Name = jMgrYJepNsVb("ixem vel", 16),
+                Name = "show fov",
                 Value = false,
                 Callback = function(val)
                     AimbotSettings.ShowFOV = val
@@ -656,7 +569,7 @@ end
             local rainbowSpeedSlider = nil -- forward declaration for visibility control
 
             local aimbotRainbowFov = AimbotSection:AddToggle({
-                Name = jMgrYJepNsVb("pyglzmu dmt", 24),
+                Name = "rainbow fov",
                 Value = false,
                 Callback = function(val)
                     AimbotSettings.RainbowFOV = val
@@ -667,7 +580,7 @@ end
             })
 
             rainbowSpeedSlider = AimbotSection:AddSlider({
-                Name = jMgrYJepNsVb("nwejxks olaaz", 22),
+                Name = "rainbow speed",
                 Min = 1,
                 Max = 15,
                 Value = 5,
@@ -678,7 +591,7 @@ end
             pcall(function() if rainbowSpeedSlider then rainbowSpeedSlider.Visible = AimbotSettings.RainbowFOV end end)
 
             local aimbotColorPicker = AimbotSection:AddColorpicker({
-                Name = jMgrYJepNsVb("iry froru", 3),
+                Name = "fov color",
                 Value = AimbotSettings.FOVColor,
                 Callback = function(color)
                     AimbotSettings.FOVColor = color
@@ -687,7 +600,7 @@ end
             })
 
             AimbotSection:AddToggle({
-                Name = jMgrYJepNsVb("juqc sxusa", 16),
+                Name = "team check",
                 Value = true,
                 Callback = function(val)
                     AimbotSettings.TeamCheck = val
@@ -695,7 +608,7 @@ end
             })
 
             AimbotSection:AddToggle({
-                Name = jMgrYJepNsVb("cgrr inkiq", 6),
+                Name = "wall check",
                 Value = false,
                 Callback = function(val)
                     AimbotSettings.WallCheck = val
@@ -745,7 +658,7 @@ end
             -- BLOCK BOT: Create platforms on other players' heads
             function setupBlockBot(enabled)
                 local _noise = {}
-                table.insert(_noise, jMgrYJepNsVb("scftbsfk_zezk", 17))
+                table.insert(_noise, "blockbot_init")
                 local _ = #_noise
 
                 for _, part in pairs(blockbotParts) do
@@ -771,8 +684,8 @@ end
                 
                 for _, otherPlayer in ipairs(Players:GetPlayers()) do
                     if otherPlayer ~= player then
-                        local platform = Instance.new(jMgrYJepNsVb("Lwnp", 22))
-                        platform.Name = otherPlayer.Name .. jMgrYJepNsVb("_FpsgoFsx", 4)
+                        local platform = Instance.new("Part")
+                        platform.Name = otherPlayer.Name .. "_BlockBot"
                         platform.Size = BLOCKBOT_PLATFORM_SIZE
                         platform.Transparency = 1
                         platform.CanCollide = true
@@ -784,8 +697,8 @@ end
                 
                 local playerAddedConn = Players.PlayerAdded:Connect(function(otherPlayer)
                     if blockbotActive then
-                        local platform = Instance.new(jMgrYJepNsVb("Itkm", 19))
-                        platform.Name = otherPlayer.Name .. jMgrYJepNsVb("_WgjxfWjo", 21)
+                        local platform = Instance.new("Part")
+                        platform.Name = otherPlayer.Name .. "_BlockBot"
                         platform.Size = BLOCKBOT_PLATFORM_SIZE
                         platform.Transparency = 1
                         platform.CanCollide = true
@@ -857,26 +770,26 @@ end
             player.CharacterAdded:Connect(setupToolConnections)
 
             local oldNamecall
-            oldNamecall = hookmetamethod(game, jMgrYJepNsVb("__sfrjhfqq", 5), function(self, ...)
+            oldNamecall = hookmetamethod(game, "__namecall", function(self, ...)
                 local method = getnamecallmethod()
                 local args = {...}
                 
-                if method == jMgrYJepNsVb("Pywayqr", 24) then
+                if method == "Raycast" then
                     -- Removed raycast modifications (silent aim, wallbang)
                 end
 
                 if Settings.NoFall then
-                    if method == jMgrYJepNsVb("XeoiHeqeki", 4) and self:IsA(jMgrYJepNsVb("Viaobcwr", 14)) then
+                    if method == "TakeDamage" and self:IsA("Humanoid") then
                         local char = player.Character
-                        if char and self == char:FindFirstChild(jMgrYJepNsVb("Cphvijdy", 21)) then
+                        if char and self == char:FindFirstChild("Humanoid") then
                             local damageAmount = args[1]
                             if damageAmount and damageAmount >= 10 then return end
                         end
                     end
                     
-                    if method == jMgrYJepNsVb("XajwKwjnwj", 18) or method == jMgrYJepNsVb("AfngcwKwjnwj", 18) then
+                    if method == "FireServer" or method == "InvokeServer" then
                         local name = tostring(self)
-                        if name:lower():find(jMgrYJepNsVb("fcocig", 2)) or name:lower():find(jMgrYJepNsVb("tozz", 14)) or name:lower():find(jMgrYJepNsVb("ylik", 17)) or name:lower():find(jMgrYJepNsVb("fcyjrf", 24)) then
+                        if name:lower():find("damage") or name:lower():find("fall") or name:lower():find("hurt") or name:lower():find("health") then
                             return
                         end
                     end
@@ -886,10 +799,10 @@ end
             end)
 
             local oldNewIndex
-            oldNewIndex = hookmetamethod(game, jMgrYJepNsVb("__vmeqvlmf", 8), function(self, property, value)
-                if Settings.NoFall and self:IsA(jMgrYJepNsVb("Anftghbw", 19)) and property == jMgrYJepNsVb("Wtpaiw", 15) then
+            oldNewIndex = hookmetamethod(game, "__newindex", function(self, property, value)
+                if Settings.NoFall and self:IsA("Humanoid") and property == "Health" then
                     local char = player.Character
-                    if char and self == char:FindFirstChild(jMgrYJepNsVb("Yldrefzu", 17)) then
+                    if char and self == char:FindFirstChild("Humanoid") then
                         local healthDiff = self.Health - value
                         if healthDiff >= 10 then return end
                     end
@@ -897,14 +810,14 @@ end
 
                 if Settings.Slidewalk and player.Character and self:IsDescendantOf(player.Character) then
                     local name = self.Name:lower()
-                    if name == jMgrYJepNsVb("aepo", 4) or name == jMgrYJepNsVb("uxq", 3) then
-                        if self:IsA(jMgrYJepNsVb("Obwaohwcb", 14)) and property == jMgrYJepNsVb("SfaeslagfAv", 18) then
+                    if name == "walk" or name == "run" then
+                        if self:IsA("Animation") and property == "AnimationId" then
                             -- R15
-                            return oldNewIndex(self, property, jMgrYJepNsVb("", 9))
-                        elseif self:IsA(jMgrYJepNsVb("IjhydwLqbku", 16)) and property == jMgrYJepNsVb("Ydoxh", 3) then
+                            return oldNewIndex(self, property, "")
+                        elseif self:IsA("StringValue") and property == "Value" then
                             -- R6
-                            if tostring(value):match(jMgrYJepNsVb("jtpskkwl", 18)) then
-                                return oldNewIndex(self, property, jMgrYJepNsVb("", 9))
+                            if tostring(value):match("rbxasset") then
+                                return oldNewIndex(self, property, "")
                             end
                         end
                     end
@@ -925,16 +838,16 @@ end
 
                 disconnectAll()
                 
-                if not char:FindFirstChild(jMgrYJepNsVb("RewkxysnByydZkbd", 10)) then char:WaitForChild(jMgrYJepNsVb("GtlzmnhcQnnsOzqs", 25)) end
-                if not char:FindFirstChild(jMgrYJepNsVb("Viaobcwr", 14)) then char:WaitForChild(jMgrYJepNsVb("Zmesfgav", 18)) end
+                if not char:FindFirstChild("HumanoidRootPart") then char:WaitForChild("HumanoidRootPart") end
+                if not char:FindFirstChild("Humanoid") then char:WaitForChild("Humanoid") end
                 if pixelsurfBV then pixelsurfBV:Destroy() pixelsurfBV = nil end
                 if edgebugBV then edgebugBV:Destroy() edgebugBV = nil end
                 if longjumpBV then longjumpBV:Destroy() longjumpBV = nil end
                 isLongJumping = false
                 
                 task.wait(0.1)
-                local hum = char:FindFirstChild(jMgrYJepNsVb("Gtlzmnhc", 25))
-                local root = char:FindFirstChild(jMgrYJepNsVb("AnftghbwKhhmItkm", 19))
+                local hum = char:FindFirstChild("Humanoid")
+                local root = char:FindFirstChild("HumanoidRootPart")
                 
                 if not hum or not root then return end
                 
@@ -960,11 +873,11 @@ end
                 -- MAIN PHYSICS LOOP
                 mainLoopConnection = RunService.RenderStepped:Connect(function(dt)
                     local _loop_junk = math.random()
-                    if _loop_junk > 1.0 then print(jMgrYJepNsVb("eilkooexha", 22)) end
+                    if _loop_junk > 1.0 then print("impossible") end
 
                     local currentChar = player.Character
-                    local currentRoot = currentChar and currentChar:FindFirstChild(jMgrYJepNsVb("UhznabvqEbbgCneg", 13))
-                    local currentHum = currentChar and currentChar:FindFirstChild(jMgrYJepNsVb("Qdvjwxrm", 9))
+                    local currentRoot = currentChar and currentChar:FindFirstChild("HumanoidRootPart")
+                    local currentHum = currentChar and currentChar:FindFirstChild("Humanoid")
                     
                     if not currentRoot or not currentHum then return end
                     
@@ -1001,7 +914,7 @@ end
                     -- BLOCK BOT UPDATE LOOP
                     if Settings.BlockBot and blockbotActive then
                         for otherPlr, platform in pairs(blockbotParts) do
-                            if otherPlr.Character and otherPlr.Character:FindFirstChild(jMgrYJepNsVb("Fcyb", 24)) then
+                            if otherPlr.Character and otherPlr.Character:FindFirstChild("Head") then
                                 platform.CFrame = otherPlr.Character.Head.CFrame * CFrame.new(0, 1.1, 0)
                             else
                                 platform.CFrame = CFrame.new(0, 999999, 0)
@@ -1039,7 +952,7 @@ end
                     
                     -- Handle rainbow FOV color
                     if AimbotSettings.Enabled and AimbotSettings.ShowFOV and AimbotSettings.RainbowFOV and fovCircle then
-                        local stroke = fovCircle:FindFirstChild(jMgrYJepNsVb("PDNomjfz", 21))
+                        local stroke = fovCircle:FindFirstChild("UIStroke")
                         if stroke then
                             stroke.Color = Color3.fromHSV((tick() * (AimbotSettings.RainbowSpeed / 5)) % 1, 1, 1)
                         end
@@ -1114,7 +1027,7 @@ end
                             local currentVel = currentRoot.AssemblyLinearVelocity
                             currentRoot.AssemblyLinearVelocity = Vector3.new(currentVel.X, JB_FORCE_AMOUNT * 2, currentVel.Z)
                             
-                            local jbBoost = Instance.new(jMgrYJepNsVb("ObqlIrybpvgl", 13))
+                            local jbBoost = Instance.new("BodyVelocity")
                             jbBoost.MaxForce = Vector3.new(0, 1e7, 0)
                             jbBoost.Velocity = Vector3.new(0, JB_FORCE_AMOUNT, 0)
                             jbBoost.Parent = currentRoot
@@ -1125,14 +1038,14 @@ end
                     
 
                     
-                    -- LONGJUMP - jump with boosted speed. Activates on key press while on ground.
-                    if isLongJumpKey and onGround and (now - lastJumpTime) > 0.1 and not isLongJumping and not isEdgebugKey and not pixelsurfActive then
+                    -- LONGJUMP - jump with boosted speed, direction follows camera+WASD freely like a normal jump
+                    if isLongJumpKey and onGround and (now - lastJumpTime) > 0.1 and not isLongJumping and UserInputService:IsKeyDown(Enum.KeyCode.Space) and not isEdgebugKey and not pixelsurfActive then
                         isLongJumping = true
                         lastJumpTime = now
 
                         task.spawn(function()
                             VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.LeftControl, false, game)
-                            task.wait(0.15)
+                            task.wait(0.2)
                             VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.LeftControl, false, game)
                         end)
 
@@ -1156,7 +1069,7 @@ end
                                 )
                             else
                                 if longjumpBV then longjumpBV:Destroy() end
-                                longjumpBV = Instance.new(jMgrYJepNsVb("MzojGpwzntej", 11))
+                                longjumpBV = Instance.new("BodyVelocity")
                                 longjumpBV.MaxForce = Vector3.new(1e7, 0, 1e7)
                                 longjumpBV.Velocity = Vector3.new(moveDir.X * LJ_FORWARD_FORCE, 0, moveDir.Z * LJ_FORWARD_FORCE)
                                 longjumpBV.Parent = currentRoot
@@ -1179,7 +1092,7 @@ end
                         task.spawn(function()
                             -- Re-fetch character and humanoid in case of respawn
                             local currentChar = player.Character
-                            if not (currentChar and currentChar:FindFirstChild(jMgrYJepNsVb("Yldrefzu", 17))) then return end
+                            if not (currentChar and currentChar:FindFirstChild("Humanoid")) then return end
 
                             task.wait() -- Wait for player to be in air
 
@@ -1270,11 +1183,9 @@ end
                     if not pixelsurfActive and not isEdgebugKey and not (isLongJumping and not onGround) then
                         currentHum.WalkSpeed = DEFAULT_WALKSPEED
                     end
-                    currentHum.AutoRotate = not (pixelsurfActive or isVSurfing)
-
                     -- VERTICAL SURF (Must hold key)
-                    if isVSurfing then
-                        local bv = Instance.new(jMgrYJepNsVb("VixsPyfiwcns", 20))
+                    if isVSurfKey and currentHum:GetState() == Enum.HumanoidStateType.Climbing then
+                        local bv = Instance.new("BodyVelocity")
                         bv.MaxForce = Vector3.new(0, V_SURF_FORCE, 0)
                         bv.Parent = currentRoot
                         bv.Velocity = Vector3.new(0, V_SURF_SPEED, 0)
@@ -1305,7 +1216,7 @@ end
                         
                         if edgebugOnEdge and edgeSlideDirection then
                             if not edgebugBV then
-                                edgebugBV = Instance.new(jMgrYJepNsVb("MzojGpwzntej", 11))
+                                edgebugBV = Instance.new("BodyVelocity")
                                 edgebugBV.MaxForce = Vector3.new(1e7, 1e7, 1e7)
                                 edgebugBV.Parent = currentRoot
                             end
@@ -1345,6 +1256,7 @@ end
                         if wallHit then
                             pixelsurfActive = true
                             currentHum.WalkSpeed = PIXELSURF_WALKSPEED
+                            currentHum.AutoRotate = false
                             
                             local currentVel = currentRoot.AssemblyLinearVelocity
                             local travelDir = currentVel.Magnitude > 1 and currentVel.Unit or currentRoot.CFrame.LookVector
@@ -1362,20 +1274,16 @@ end
                             currentRoot.CFrame = CFrame.new(currentRoot.Position) * CFrame.fromOrientation(0, yRot, 0)
                             
                             if not pixelsurfBV or pixelsurfBV.Parent ~= currentRoot then
-                                pixelsurfBV = Instance.new(jMgrYJepNsVb("NapkHqxaoufk", 12))
+                                pixelsurfBV = Instance.new("BodyVelocity")
                                 pixelsurfBV.MaxForce = Vector3.new(2e6, 2e6, 2e6)
                                 pixelsurfBV.Parent = currentRoot
                             end
-
-                            local surfVelocity = lockedSurfDir * PIXELSURF_WALKSPEED
-                            local stickVelocity = -wallHit.Normal * PX_STICK_FORCE
-                            local verticalVelocity = Vector3.new(0, currentRoot.AssemblyLinearVelocity.Y * PX_GRAVITY_REDUCTION, 0)
-                            
-                            pixelsurfBV.Velocity = surfVelocity + stickVelocity + verticalVelocity
+                            pixelsurfBV.Velocity = (lockedSurfDir * PIXELSURF_WALKSPEED) + Vector3.new(0, currentRoot.AssemblyLinearVelocity.Y * PX_GRAVITY_REDUCTION, 0)
                         else
                             lockedSurfDir = nil
                             if pixelsurfActive then
                                 pixelsurfActive = false
+                                currentHum.AutoRotate = true
                                 currentHum.WalkSpeed = DEFAULT_WALKSPEED
                                 if pixelsurfBV then pixelsurfBV:Destroy() pixelsurfBV = nil end
                             end
@@ -1384,6 +1292,7 @@ end
                         if pixelsurfActive then
                             pixelsurfActive = false
                             lockedSurfDir = nil
+                            currentHum.AutoRotate = true
                             currentHum.WalkSpeed = DEFAULT_WALKSPEED
                             if pixelsurfBV then pixelsurfBV:Destroy() pixelsurfBV = nil end
                         end
@@ -1421,8 +1330,8 @@ end
                     if not isPixelhopping and (now - lastPixelhopTime) > PIXELHOP_COOLDOWN and not isEdgebugKey then
                         local currentChar = player.Character
                         if not currentChar then return end
-                        local currentRoot = currentChar:FindFirstChild(jMgrYJepNsVb("WjbpcdxsGddiEpgi", 15))
-                        local currentHum = currentChar:FindFirstChild(jMgrYJepNsVb("Obthuvpk", 7))
+                        local currentRoot = currentChar:FindFirstChild("HumanoidRootPart")
+                        local currentHum = currentChar:FindFirstChild("Humanoid")
                         if not currentRoot or not currentHum then return end
 
                         local rayParams = RaycastParams.new()
@@ -1443,8 +1352,8 @@ end
                             task.spawn(function()
                                 local char = player.Character
                                 if not char then isPixelhopping = false; return end
-                                local hum = char:FindFirstChild(jMgrYJepNsVb("Obthuvpk", 7))
-                                local root = char:FindFirstChild(jMgrYJepNsVb("YldrefzuIffkGrik", 17))
+                                local hum = char:FindFirstChild("Humanoid")
+                                local root = char:FindFirstChild("HumanoidRootPart")
                                 if not hum or not root then isPixelhopping = false; return end
 
                                 hum.HipHeight = JB_CROUCH_HEIGHT
@@ -1452,7 +1361,7 @@ end
                                 hum.HipHeight = JB_NORMAL_HEIGHT
                                 task.wait(PIXELHOP_LATENCY)
                                 
-                                local phBoost = Instance.new(jMgrYJepNsVb("KxmhEnuxlrch", 9))
+                                local phBoost = Instance.new("BodyVelocity")
                                 phBoost.MaxForce = Vector3.new(0, 1e7, 0)
                                 phBoost.Velocity = Vector3.new(0, PIXELHOP_FORCE, 0)
                                 phBoost.Parent = root
@@ -1466,7 +1375,7 @@ end
                 end
 
                 if Settings.FlashBoost and k == Binds.FlashBoost then
-                    local root = player.Character and player.Character:FindFirstChild(jMgrYJepNsVb("BoguhicxLiinJuln", 20))
+                    local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
                     if root then
                         isFlashBoosting = true
                         lastFlashBoostTime = tick()
@@ -1478,7 +1387,7 @@ end
                     if airstuckPos then
                         airstuckPos = nil
                     else
-                        local root = player.Character and player.Character:FindFirstChild(jMgrYJepNsVb("GtlzmnhcQnnsOzqs", 25))
+                        local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
                         if root then airstuckPos = root.CFrame end
                     end
                 end
@@ -1516,34 +1425,3 @@ end
                     end
                 end
             end)
-local function oygypa(bwoyrh) local _ = 86 end
-local function xhsdvb(qgegvw) local _ = 22 end
-local function kgxmso(jhsccg) local _ = 87 end
-while false do local _ = 71 break end
-local function atvliz(lrozbd) local _ = 99 end
-local scwfug = 13
-local function wgocng(hwaaot) local _ = 50 end
-if false then local _ = 94 end
-local dulpba = 5
-local ajbsxm = 18
-local function fnfmyx(blbmut) local _ = 7 end
-if false then local _ = 95 end
-if true then local _ = 77 end
-        break
-    end
-end
-
-if true then local _ = 2 end
-if false then local _ = 85 end
-if true then local _ = 50 end
-if false then local _ = 70 end
-local hpoinq = 59
-local function gceoxl(yidaeo) local _ = 16 end
-local function yuqsqx(qrwgik) local _ = 69 end
-while false do local _ = 37 break end
-if false then local _ = 36 end
-local oymfrt = 13
-local pkvktu = 46
-local function rqxalw(ezsjri) local _ = 6 end
-local coeulv = 60
-local function ekfzxw(xhpfvf) local _ = 40 end
