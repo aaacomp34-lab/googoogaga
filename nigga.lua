@@ -75,7 +75,7 @@
             -- EDGEBUG
             local EDGEBUG_DETECTION_RADIUS = 0.7
             local EDGEBUG_EDGE_THRESHOLD = 0.3
-            local EDGEBUG_SLIDE_SPEED = 27
+            local EDGEBUG_SLIDE_SPEED = 27.5
             local EDGEBUG_MIN_HEIGHT = 0.3
 
             -- PIXELSURF
